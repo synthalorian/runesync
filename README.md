@@ -16,20 +16,59 @@ The current project fleet already covers agent frameworks, music software, games
 
 ## Commands
 
+### `plan` — dry-run preview (default safe mode)
+
+Show what would be copied, deleted, or skipped. Never modifies anything.
+
 ```sh
 runesync plan ~/Projects/active /mnt/backup/active
+runesync plan ~/Projects/active /mnt/backup/active --delete
 ```
+
+### `sync` — perform the synchronization
+
+Requires `--execute` flag. Without it, sync refuses to run.
+
 ```sh
-runesync apply ~/Projects/active /mnt/backup/active --yes
+runesync sync ~/Projects/active /mnt/backup/active --execute
+runesync sync ~/Projects/active /mnt/backup/active --execute --delete
 ```
+
+### `check` — verify directories are in sync
+
+Exit code 0 if identical, 1 if different. Useful in scripts and CI.
+
+```sh
+runesync check ~/Projects/active /mnt/backup/active
+```
+
+## Options
+
+| Flag        | Effect                                              |
+|-------------|-----------------------------------------------------|
+| `--delete`  | Remove files in dest that don't exist in source     |
+| `--execute` | Actually perform the sync (required by `sync`)      |
+
+## Safety
+
+- `plan` is always a dry-run — no changes are ever made.
+- `sync` requires `--execute` to make any changes.
+- Deletions require `--delete` flag.
+- Symlinks are never followed.
+- Output is deterministic (sorted, no timestamps).
+- Files are compared by content hash, not just size or mtime.
 
 ## Architecture
 
-`src/main.rs` contains the complete v0 implementation: parsing, validation, pure core functions, CLI dispatch, and unit tests. The next extraction boundary is a `core` module once the format stabilizes; until then, keeping the tape on one reel makes audits cheap.
+- `src/lib.rs` — pure functions: scanning, hashing, diffing, planning. No side effects.
+- `src/main.rs` — CLI parsing, validation, dispatch, and execution. Thin wrapper over lib.
+- `tests/integration.rs` — integration tests using real temporary directories.
+
+Content comparison uses FNV-1a 64-bit hashing — simple, deterministic, and dependency-free.
 
 ## Roadmap
 
-- [ ] Plan and explicit apply
+- [x] Plan and explicit apply
 - [ ] Ignore files
 - [ ] Rename detection
 - [ ] SSH transport behind a separate adapter
