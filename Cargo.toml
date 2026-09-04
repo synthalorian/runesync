@@ -1,0 +1,9 @@
+[package]
+name = "runesync"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+description = "Deterministic dry-run-first directory synchronization"
+
+[dependencies]
