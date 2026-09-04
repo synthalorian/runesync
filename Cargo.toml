@@ -7,3 +7,11 @@ license = "MIT"
 description = "Deterministic dry-run-first directory synchronization"
 
 [dependencies]
+
+[lib]
+name = "runesync"
+path = "src/lib.rs"
+
+[[bin]]
+name = "runesync"
+path = "src/main.rs"
