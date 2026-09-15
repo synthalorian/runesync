@@ -86,4 +86,4 @@ cargo run -- --help
 Local commits only. Never push or create remotes without explicit instruction. Do not weaken validation to make a failing test pass.
 
 ---
-Made by [synth](https://github.com/synthalorian) with synthclaw 🎹🦞
+Made by [synth](https://github.com/synthalorian) with blackclaw ⚫🦞
