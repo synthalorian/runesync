@@ -12,7 +12,7 @@ Build `runesync` as a working, tested, local-first v0: deterministic dry-run-fir
 - Run `cargo fmt --check` and `cargo test` before claiming completion.
 - Local commits only. Never push, never create remotes, never rewrite tags.
 - Preserve the plain-text format and deterministic behavior.
-- Credit: `Made by synth with synthclaw 🎹🦞`
+- Credit: `Made by synth with blackclaw ⚫🦞`
 
 ## Definition of done
 
