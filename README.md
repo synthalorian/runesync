@@ -1,3 +1,5 @@
+![runesync](.github/preview.png)
+
 # runesync
 
 Deterministic dry-run-first directory synchronization.
